@@ -1,0 +1,188 @@
+WICHTIGE INFORMATION
+
+Wenn eine Anwendung mit Rev.1.4.2 oder neuer mit select_rtc oder acquire_rtc 
+auf eine PCIe- oder Eth-Karte zugreifen will, auf der Rev.1.4.1 oder kleiner
+läuft, funktioniert die Versionsprüfung nicht. Die Karte wird fälschlicher-
+weise in Besitz genommen. load_program_file repariert den Fehler.
+
+
+PCIe:
+
+Rev. 1.2. DLL 603, OUT 603, RBF 608, DAT 601
+Software aus Rev. 1.3 oder 1.3.1 läuft nicht (load_program_file() - Fehler 2)
+BIOS-Version 0x11 (nicht explizit auslesbar)
+
+Rev. 1.3: DLL 606, OUT 606, RBF 611, DAT 601
+Software aus Rev. 1.2 läuft nicht (load_program_file() - Fehler 2)
+BIOS-Version 0x21 oder 0x22 (auslesbar mit get_bios_version())
+
+Rev. 1.3.1: DLL 607, OUT 607, RBF 611, DAT 601
+Software aus Rev. 1.2 läuft nicht (load_program_file() - Fehler 2)
+BIOS-Version 0x21 oder 0x22
+Software aus Rev. 1.3 läuft möglicherweise nicht 
+(load_program_file() - Timeout 30 s - Fehler 2). In diesem Fall ist ein 
+Neustart der Karte erforderlich. Dann nur die Rev. 1.3 Software laden, 
+nicht zuvor Rev. 1.3.1 (auch nicht mit der aktuellen laserDESK-Version 1.4.1.2,
+welche Rev. 1.3.1-Files lädt).
+
+Rev. 1.4.1: DLL 609, OUT 609, RBF 614, DAT 601
+BIOS-Version 0x23
+Ein Software-Wechsel zur Laufzeit (load_program_file()) mit Versionen 
+Rev. 1.4.1 oder neuer ist mit Bios-Version 0x23 möglich.
+Mit früheren BIOS-Versionen und/oder früheren Software-Version als Rev. 1.4.1
+kann es zu Problemen kommen (incl. PC-Freeze, BlueScreen). Hier ist vor 
+load_program_file ein Power-Cycle der Karte dringend empfehlenswert.
+
+Rev. 1.4.2: DLL 610, OUT 610, RBF 615, DAT 602
+WICHTIG: Es gibt eine neue DAT-File-Version 602. Ältere DAT-File-Versionen
+können nicht mehr verwendet werden. load_program_file liefert sonst einen
+Version-Mismatch-Fehler.
+
+Rev. 1.4.3 war kein offizielles Release
+
+Rev. 1.4.4: DLL 611, OUT 611, RBF 615, DAT 603
+WICHTIG: Es gibt eine neue DAT-File-Version 603. Ältere DAT-File-Versionen
+können nicht mehr verwendet werden. load_program_file liefert sonst einen
+Version-Mismatch-Fehler.
+
+
+Eth:
+
+Hier unterscheiden sich die Bios-Versionen:
+BIOS-Version 0x21: load_program_file() liefert fälschlicherweise Fehler 2, 
+sofern kein anderer Fehler oder ein echter Fehler 2 vorliegt.
+Prüfen z.B. mit get_overrun() und get_last_error() und ggf. 
+eth_get_last_error(). Wenn beides ohne Fehler, dann läuft die Software trotz
+vorheriger Fehlermeldung.
+Bisher wird BIOS 0x21 mit Software Rev. 1.3 ausgeliefert.
+
+BIOS-Version 0x22: load_program_file() läuft ohne fälschliche Fehlermeldung 2 
+durch, sofern kein anderer Fehler vorliegt.
+Bisher wird BIOS 0x22 mit Software Rev. 1.3.1 ausgeliefert.
+
+Ein BIOS-Upgrade (um z.B. den load_program_file()-Fehler zu beheben) ist mit 
+dem Software-Paket Rev. 1.3.1 noch nicht vor Ort möglich, jedoch mit 
+Rev. 1.3.2. Man führe RTC6config.exe aus.
+
+Rev. 1.4.1: DLL 609, OUT 609, RBF 614, DAT 601
+BIOS-Version 0x23
+Mit früheren BIOS-Versionen und/oder früheren Software-Version als Rev. 1.4.1
+kann es zu Problemen beim Booten oder bei load_program_file kommen (Karte läuft 
+nicht). Man führe daher RTC6config.exe aus, um auf BIOS 23 upzugraden. 
+Mit BIOS 23 ist ein automatisches Booten aus dem integrierten Speicher
+unterbunden. Damit ist nach jedem Neustart ein load_program_file zwingend
+erforderlich. Ein Power-Cycle der Eth-Karte hat damit dieselbe Wirkung wie bei 
+einer PCIe-Karte. Ein Software-Wechsel zur Laufzeit (load_program_file()) ist 
+mit Versionen Rev. 1.4.1 oder neuer und mit Bios-Version 0x23 möglich.
+Das automatische Booten wird mit einer späteren Version wieder etabliert.
+
+Rev. 1.4.2: DLL 610, OUT 610, RBF 615, DAT 602
+WICHTIG: Es gibt eine neue DAT-File-Version 602. Ältere DAT-File-Versionen
+können nicht mehr verwendet werden. load_program_file liefert sonst einen
+Version-Mismatch-Fehler.
+
+Rev. 1.4.3 war kein offizielles Release
+
+Rev. 1.4.4: DLL 610, OUT 610, RBF 615, DAT 603
+WICHTIG: Es gibt eine neue DAT-File-Version 603. Ältere DAT-File-Versionen
+können nicht mehr verwendet werden. load_program_file liefert sonst einen
+Version-Mismatch-Fehler.
+BIOS-Version 0x24
+AutoIP: Wenn FORCE_DHCP gesetzt ist und innerhalb von 60 s keine IP-Adresse
+zugewiesen wurde, verwendet die Karte automatisch eine link-local Adresse
+(169.254.1.0/16).
+
+
+
+IMPORTANT INFORMATION
+
+If an application with Rev.1.4.2 or newer wants to access a PCIe or Eth card
+with Rev.1.4.1 or lower by select_rtc or acquire_rtc, the version check does 
+not work. The card is erroneously accessed. 
+load_program_file repairs the error.
+
+
+PCIe:
+
+Rev. 1.2. DLL 603, OUT 603, RBF 608, DAT 601
+Software out of Rev. 1.3 or 1.3.1 does not run (load_program_file() error 2)
+BIOS version 0x11 (cannot be readout explicitly).
+
+Rev. 1.3: DLL 606, OUT 606, RBF 611, DAT 601
+Software out of Rev. 1.2 does not run (load_program_file() error 2)
+BIOS version 0x21 or 0x22 (can be readout with get_bios_version())
+
+Rev. 1.3.1: DLL 607, OUT 607, RBF 611, DAT 601
+Software out of Rev. 1.2 does not run (load_program_file() error 2).
+BIOS version 0x21 oder 0x22.
+Software out of Rev. 1.3 does possibly not run. 
+(load_program_file() - Timeout 30 s - error 2). In this case a power cycle
+of the board is necessary. Then only load Rev. 1.3 software, not prior to this 
+Rev. 1.3.1 (not either with the current laserDESK version 1.4.1.2, 
+which loads Rev. 1.3.1 files).
+
+Rev. 1.4.1: DLL 609, OUT 609, RBF 614, DAT 601
+BIOS version 0x23
+Changing the software version at run time (load_program_file()) with versions 
+Rev. 1.4.1 or newer is possible with BIOS version 0x23.
+With earlier BIOS versions and/or earlier software versions as Rev. 1.4.1
+problems may occur (incl. PC-Freeze, BlueScreen). In these cases a power cycle 
+of the board before calling load_program_file is strongly recommended.
+
+Rev. 1.4.2: DLL 610, OUT 610, RBF 615, DAT 602
+IMPORTANT: There is a new DAT-file version 602. Older DAT-file versions can't 
+be used anymore. load_program_file would then return a version-mismatch error.
+
+Rev. 1.4.3 was not an official release.
+
+Rev. 1.4.4: DLL 610, OUT 610, RBF 615, DAT 603
+IMPORTANT: There is a new DAT-file version 603. Older DAT-file versions can't 
+be used anymore. load_program_file would then return a version-mismatch error.
+
+
+Eth:
+
+Here the BIOS versions differ:
+BIOS version 0x21: load_program_file() erroneously returns error 2, 
+provided that no other error or a real error 2 did occure.
+Verify it, for example, with get_overrun() and get_last_error() and if 
+applicable eth_get_last_error(). If both do not show an error, then the 
+software runs despite the previous error message.
+Up to now BIOS 0x21 is delivered with software Rev. 1.3.
+
+BIOS version 0x22: load_program_file() runs without erroneous error 2,  
+provided that no other error is present.
+Up to now BIOS 0x22 is delivered with software Rev. 1.3.1.
+
+Upgrading the BIOS version (for example, in order to remove the 
+load_program_file() error) is not yet possible on site with the software 
+Rev. 1.3.1, but with Rev. 1.3.2. Call RTC6config.exe.
+
+Rev. 1.4.1: DLL 609, OUT 609, RBF 614, DAT 601
+BIOS version 0x23
+With earlier BIOS versions and/or earlier software versions than Rev. 1.4.1
+problems might occur when calling load_program_file (board not running).
+Execute RTC6config.exe to upgrade to BIOS version 23. With this BIOS version
+an automatic boot of the program file out of the integrated memory is 
+suppressed. Thus calling load_program_file is mandatory after every power 
+cycle. A power cycle of the Eth board has now the same effect as power 
+cycling a PCIe board. Changing the software at runtime (load_program_file())
+is possible with version as of Rev. 1.4.1 and BIOS version 23.
+The automatic boot of the program file will be re-established in a future 
+version of the BIOS.
+
+Rev. 1.4.2: DLL 610, OUT 610, RBF 615, DAT 602
+IMPORTANT: There is a new DAT-file version 602. Older DAT-file versions can't 
+be used anymore. load_program_file would then return a version-mismatch error.
+
+Rev. 1.4.3 was not an official release.
+
+Rev. 1.4.4: DLL 610, OUT 610, RBF 615, DAT 603
+IMPORTANT: There is a new DAT-file version 603. Older DAT-file versions can't 
+be used anymore. load_program_file would then return a version-mismatch error.
+BIOS version 0x24
+AutoIP: If FORCE_DHCP is set and no IP address is assigned within 60 seconds 
+after Power-On, a link-local address (169.254.1.0/16) is automatically used.
+
+
+

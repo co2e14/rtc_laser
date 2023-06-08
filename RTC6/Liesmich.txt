@@ -1,0 +1,254 @@
+Datei: LIESMICH.txt
+
+SCANLAB RTC6 Software 'Liesmich'
+
+***************************************************************************
+
+Verwendung
+
+Die RTC6 Interfacekarte in Kombination mit ihrem Software-Treiber erlaubt
+die Echtzeit-Steuerung von Scan-Systemen, Lasern und Peripheriegeräten mit
+einem IBM-kompatiblen PC.
+
+Der RTC6-Software-Treiber und die RTC6-DLL dieses RTC6-Software-Pakets sind
+sowohl für die 32-Bit-Version als auch die 64-Bit-Version der Microsoft-
+Betriebssysteme Windows 10, 8, 7 ausgelegt. Der Treiber unterstützt die 
+Plug-and-Play-Fähigkeit der RTC6 und kann simultan beliebig viele RTC6-Karten
+steuern.
+
+
+Die Dateien dieses RTC6-Software-Pakets werden im Folgenden aufgelistet.
+Zusätzlich wird die Installation des Treibers, sowie der zugehörigen
+DLL-Datei und Programmdateien ausführlich beschrieben. Weitere Anleitungen
+zum erfolgreichen Betrieb der RTC6-Karte finden Sie im RTC6-Handbuch.
+
+
+***************************************************************************
+
+Hersteller
+
+   SCANLAB GmbH
+   Siemensstraße 2a 
+   82178 Puchheim
+   Deutschland
+
+   Tel. + 49 (89) 800 746-0
+   Fax: + 49 (89) 800 746-199
+
+   info@scanlab.de
+   www.scanlab.de
+
+***************************************************************************
+
+Lieferumfang
+
+Das RTC6-Software-Paket beinhaltet die folgenden Dateien:
+
+1. Lieferumfang- und Installations-Beschreibung
+   README.txt           Beschreibung in englischer Sprache
+   LIESMICH.txt         diese Datei
+   RTC6_Release_Notes<Datum>.pdf    Release Notes
+                                    in englischer und deutscher Sprache
+
+2. Korrekturfiles
+   Die RTC6-Karte verwendet dieselben Korrekturfiles wie die RTC5-Karte
+
+   cor_1to1.ct5         1:1 Korrekturfile (ohne Feldkorrektur)
+   
+   (Hinweis: Die Korrekturfiles der RTC2, RTC3 und RTC4 Interface-Karten
+    tragen die Dateinamenerweiterung "ctb")
+
+3. CorrectionFileConverter-Programm
+   Das Win32-basierte Programm CorrectionFileConverter.exe ermöglicht
+   das Konvertieren von RTC4-Korrekturfiles in RTC5-Korrekturfiles und
+   umgekehrt. Das Paket enthält auch die zugehörigen Handbücher in
+   deutscher und englischer Sprache.
+
+4. Demo-Dateien - noch nicht vorhanden
+
+5. HPGL Converter Programm
+   Win32-basierte HPGL Demo-Applikation
+   (benötigt die Programm-Dateien und die 32-Bit-DLL im selben Verzeichnis)
+
+6. iSCANConfig-Programm
+   Das Programm iSCANcfg.exe ist ein Win32-basiertes Diagnose- und Konfi-
+   gurationsprogramm für iDRIVE-Scan-Systeme (intelliSCAN, intelliSCANde,
+   intelliDRILL, intellicube, intelliWELD, varioSCANde) (benötigt die
+   Programm-Dateien, die 32-Bit-DLL und die RtcHalDLL.dll im gleichen Verzeichnis!).
+   Das Paket enthält auch die zugehörigen Handbücher in deutscher 
+   (Handbuch_iSCANcfg_v1-7.pdf) und englischer (Manual_iSCANcfg_v1-7.pdf) Sprache.
+
+7. Windows-Treiber-Dateien
+   RTC6DRV.inf          Geräte-Informations-Datei
+   RTC6DRVx64.cat       Signierte Katalog-Datei
+   RTC6DRVx64.sys       Signierte .sys-Datei DLL
+   RTC6DRVx86.cat       Signierte Katalog-Datei
+   RTC6DRVx86.sys       Signierte .sys-Datei DLL
+   
+   (Beachten Sie, der Name des Signaturgebers signierter Dateien ist:
+    "SCANLAB AG".)
+
+   Installations-Assistenten-Hilfsdateien:
+   amd64/WdfCoInstaller01009.dll
+   x86/WdfCoInstaller01009.dll
+   
+   Security-Installations-Script für Treiber-Upgrades und Beschreibung:
+   AfterInstallation/ScanlabClassChecker.cmd
+   AfterInstallation/ReadMe_ScanlabClassChecker.pdf
+   
+8. RTC6-Files
+   
+ - Windows:
+ 
+   - DLL-File:
+     RTC6DLL.dll        Win32-basierte RTC6 DLL
+     RTC6DLLx64.DLL     Win64-basierte RTC6 DLL
+
+   - Utility-Files für C, C++ und C#:  
+     RTC6DLL.lib        Visual C++ Import Library zum impliziten Linken
+                        der DLL für Win32-basierte Applikationen
+     RTC6DLLx64.lib     Visual C++ Import Library zum impliziten Linken
+                        der DLL für Win64-basierte Applikationen
+     RTC6expl.c         C-Funktionen zum DLL-Handling für das explizite
+                        Linken
+     RTC6expl.h         C-Funktionsprototypen der RTC6 zum expliziten
+                        Linken der DLL
+     RTC6impl.h         C-Funktionsprototypen der RTC6 zum impliziten
+                        Linken der DLL
+     RTC6impl.hpp       C++-Funktionsprototypen der RTC6 zum
+                        impliziten Linken der DLL
+     RTC6Wrap.cs        Funktionsprototypen (für C#) der RTC6 zum
+                        impliziten Linken der DLL; zum Kompilieren der
+                        C#-Lösung als 64-bit-Anwendung, ist das
+                        Präprozessor-Symbol: SL_x64 zu definieren
+
+   - Utility-File für Delphi:
+     RTC6Import.pas     Importdeklarationen für Delphi
+ 
+ - Programm-Dateien:
+   RTC6OUT.out          DSP-Programmdatei für RTC6 PCI Express
+   RTC6ETH.out          DSP-Programmdatei für RTC6 Ethernet
+   RTC6RBF.rbf          Firmwaredatei
+   RTC6DAT.dat          binäre Hilfsdatei
+
+ - Linux:
+ 
+   - debian-stretch:
+     rtc6-devel_<Version>_<Arch>.deb            Paket für Debian Stretch
+     rtc6-devel_<Version>-nocxx11_<Arch>.deb    Paket für Debian Stretch 
+                                                übersetzt mit 
+                                                _GLIBCXX_USE_CXX11_ABI=0 
+                                                für Kompatibilität mit 
+                                                älteren GCC Versionen
+     
+   - debian-buster
+     rtc6-devel_<Version>_<Arch>.deb            Paket für Debian Buster
+     rtc6-devel_<Version>-nocxx11_<Arch>.deb    Paket für Debian Buster 
+                                                übersetzt mit 
+                                                _GLIBCXX_USE_CXX11_ABI=0 
+                                                für Kompatibilität mit 
+                                                älteren GCC Versionen
+                                                
+   - debian-bullseye
+     rtc6-devel_<Version>_<Arch>.deb            Paket für Debian Bullseye
+     rtc6-devel_<Version>-nocxx11_<Arch>.deb    Paket für Debian Bullseye 
+                                                übersetzt mit 
+                                                _GLIBCXX_USE_CXX11_ABI=0 
+                                                für Kompatibilität mit 
+                                                älteren GCC Versionen
+     
+   readme.txt                           Info zu Paket Inhalt und
+                                        Installationsanleitung
+
+ - Die RTC6-Files werden zur Kennzeichnung der Programmversion
+   (und damit auch zur einfacheren Verwaltung unterschiedlicher Programm-
+   Versionen) zusätzlich in gezippter Version mit ausgeliefert:
+
+   - RTC6DAT_<Version>.zip
+   - RTC6DLL_<Version>.zip (enthält DLL und zugehörige Utility-Files)
+   - RTC6OUT_<Version>.zip (enthält auch RTC6ETH.out)
+   - RTC6RBF_<Version>.zip
+
+   Die Programm-Dateien und die DLL können nicht in beliebigen Programm-
+   Versionen miteinander kombiniert werden. Die zip-Dateien enthalten
+   deshalb auch jeweils eine Text-Datei mit entsprechenden Versions-
+   Informationen.
+
+ - Änderungshistorie
+   Beschreibung von Änderungen in der RTC6-Software
+   RTC6_Software_RevisionHistory_<Datum>.pdf      (in englischer Sprache)
+   RTC6_Software_Aenderungshistorie_<Datum>.pdf   (in deutscher Sprache)
+
+9. RTC6 Tools
+
+ - RTC6conf.exe     Hilfsprogramm zur Konfiguration von RTC6e und RTC6eth:
+                    upgrade BIOS,  
+                    upgrade Options,
+                            zusätzlich ist eine von SCANLAB zu erwerbende
+                            Hilfsdatei erforderlich
+                    Netzwerk-Einstellungen für RTC6eth.
+ - RTC6BIOSOUT_<Version>.out       DSP-Programmdatei für RTC6e-BIOS
+ - RTC6BIOSETH_<Version>.out       DSP-Programmdatei für RTC6eth-BIOS
+ - RTC6conf.pdf             Beschreibung der Verwendung des Hilfsprogramms
+ - Die Programmdateien dieses Pakets (DAT, DLL, OUT, RBF)
+ - SleepMode.cmd            Deaktiviert alle Sleep-und Hibernate-Modes
+ - ReadMe_SleepMode.pdf     Beschreibung der Verwendung des Scripts
+
+Wird das Software-Paket auf einer Daten-CD ausgeliefert, so enthält die CD
+alle Dateien in ungezippter Version. Das komplette Software-Paket wird
+aber zur Kennzeichnung der Programmversion (und damit auch zur einfacheren
+Verwaltung unterschiedlicher Programm-Versionen, siehe Änderungshistorie)
+zusätzlich in gezippter Version mit ausgeliefert: 
+RTC6_Software_<Rev.x.y.z>_<Datum>.zip
+
+***************************************************************************
+
+Installations-Beschreibung
+
+1. Bauen Sie die RTC6-Karte in den PC ein.
+2. Starten Sie den Computer.
+3. WINDOWS 7:
+   Wenn der "Add Hardware Wizard" nicht automatisch startet, dann starten
+   Sie ihn vom Control-Panel (Systemsteuerung) aus. Spezifizieren Sie im 
+   "Add Hardware Wizard" das  Verzeichnis, in dem sich die RTC6-Treiber 
+   befinden. Während der Installation wählt dann das Betriebssystem 
+   automatisch die geeignete Treiber-Datei (32 oder 64 Bit) aus.
+   WINDOWS 10, 8: 
+   Rufen Sie den Gerätemanager auf. Finden Sie im vom Gerätemanager
+   dargestellten Geräte-Verzeichnis den Eintrag 'PCI-Gerät' und
+   aktualisieren Sie dessen Treiber mit Angabe des Verzeichnisses, in dem 
+   sich die RTC6-Treiber befinden.
+4. Empfohlen (auf Systemen mit bestimmten RTC3/4/5-Kartentreibern 
+             jedoch verpflichtend):
+   Führen Sie die Datei 'AfterInstallation/ScanlabClassChecker.cmd' 
+   als Administrator aus. Beachten Sie dazu die Hinweise in 
+   AfterInstallation/ReadMe_ScanlabClassChecker.pdf.
+5. Kopieren bzw. entpacken Sie die Dateien RTC6DLL.dll, RTC6OUT.out,
+   RTC6ETH.out, RTC6RBF.rbf und RTC6DAT.dat auf die Festplatte Ihres PCs.
+   SCANLAB empfiehlt, diese Dateien in dem Verzeichnis zu speichern,
+   aus dem die Anwendungs-Software gestartet wird.
+   Beachten Sie beim Austauschen einzelner Software-Dateien, dass die
+   Dateien nicht in beliebigen Programmversionen miteinander kombiniert
+   werden können (s.o.).
+6. Kopieren Sie die Korrekturfile(s) (*.ct5) auf die Festplatte Ihres PCs
+   (bestehende Korrekturfiles können weiterhin genutzt werden; speziell
+   angepasste Korrekturfiles nicht überschreiben!). 
+   SCANLAB empfiehlt, diese Dateien in dem Verzeichnis zu speichern,
+   aus dem die Anwendungs-Software gestartet wird.
+
+Auf einem 64-Bit-Betriebssystem unterstützt die 64-Bit-Variante des RTC6-
+Software-Treibers Funktions-Aufrufe sowohl aus Win64-basierten Applikationen
+als auch aus Win32-basierten Applikationen. Bereits existierende Win32-basierte
+Applikationen zur RTC6 sind damit auch auf 64-Bit-Systemen ausführbar, wenn 
+(wie auf 32-Bit-Systemen) die im Paket enthaltene Win32-basierte RTC6DLL.dll 
+verwendet wird. Für Win64-basierte Applikationen ist im Paket die Win64-
+basierte DLL RTC6DLLx64.dll enthalten. Falls eine Applikation zu dieser DLL 
+Verbindung durch implizites Linken aufnehmen soll, ist sie mit der Win64-
+basierten Import-Library RTC6DLLx64.LIB zu linken. 
+
+***************************************************************************
+
+Weitere Anleitungen für einen erfolgreichen Betrieb der RTC6-Karte finden
+Sie im RTC6-Handbuch.
+
+***************************************************************************

@@ -1,0 +1,5 @@
+swig -python RTC.i
+
+module load python/3.10
+
+gcc -c include/RTC6expl.c RTC_wrap.c -I/dls_sw/apps/python/miniforge/4.10.0-0/envs/python3.10/include/python3.10

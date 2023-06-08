@@ -1,0 +1,8 @@
+Package: rtc6-devel
+Version: 0.1.38-1
+Section: custom
+Priority: optional
+Architecture: amd64
+Essential: no
+Maintainer: scanlab.de
+Description: Scanlab RTC6 Ethernet Shared Library and Headers

@@ -1,0 +1,191 @@
+*******************************************************************************
+Release Date 2022-01-21
+*******************************************************************************
+* CHANGE: Fix sporadic errors when acquiring a card.
+* CHANGE: Increased connection robustness.
+* File versions:
+    * RTC4eth_FW_2.0.9.0.bin:               2.0.9.0
+    * RTC4ethFirmwareUpdate.exe:            1.0.3.0
+    * RTC4netDLL.dll (new version):         2.4.0.1
+    * RTC4netDLLx64.dll (new version):      2.4.0.1
+    * RTC4ethConfig.exe:                    2.1.0.0
+    * RTC4ethDLLx64.dll:                    4.87
+    * RTC4ethDLL.dll:                       4.87
+
+
+*******************************************************************************
+Release Date 2021-12-22
+*******************************************************************************
+* BUGFIX: Fix load_program_file always returning driver error.
+* File versions:
+    * RTC4eth_FW_2.0.9.0.bin:               2.0.9.0
+    * RTC4ethFirmwareUpdate.exe:            1.0.3.0
+    * RTC4netDLL.dll:                       2.4.0.0
+    * RTC4netDLLx64.dll:                    2.4.0.0
+    * RTC4ethConfig.exe:                    2.1.0.0
+    * RTC4ethDLLx64.dll (new version):      4.87
+    * RTC4ethDLL.dll (new version):         4.87
+
+
+*******************************************************************************
+Release Date 2021-12-03
+*******************************************************************************
+* BUGFIX: Fixed assign_rtc_by_ip and acquire_rtc_ip sporadically not getting
+          correct internal card information.
+* BUGFIX: Fixed RTC4eth sometimes getting stuck in permanent error state when
+          repeatedly acquiring/releasing.
+* CHANGE: Improved reliability of ethernet card acquisition, which should
+          reduce occasions where the card wrongfully considers itself as
+          acquired. NOTE: This requires both the new Firmware version and the
+          new DLL; otherwise the old acquisition procedure will be used.
+* FEATURE: Diagnostic commands for ethernet errors (eth_get_last_error and
+          eth_get_error), analogous to RTC6eth.
+* File versions:
+    * RTC4eth_FW_2.0.9.0.bin (new version): 2.0.9.0
+    * RTC4ethFirmwareUpdate.exe:            1.0.3.0
+    * RTC4netDLL.dll (new version):         2.4.0.0
+    * RTC4netDLLx64.dll (new version):      2.4.0.0
+    * RTC4ethConfig.exe:                    2.1.0.0
+    * RTC4ethDLLx64.dll (new version):      4.86
+    * RTC4ethDLL.dll (new version):         4.86
+
+
+*******************************************************************************
+Release Date 2021-09-03
+*******************************************************************************
+* BUGFIX: Fix RTC4eth occasionally not booting
+* File versions:
+    * RTC4eth_FW_2.0.8.0.bin (new version): 2.0.8.0
+    * RTC4ethFirmwareUpdate.exe:            1.0.3.0
+    * RTC4netDLL.dll:                       2.3.1.0
+    * RTC4netDLLx64.dll:                    2.3.1.0
+    * RTC4ethConfig.exe:                    2.1.0.0
+    * RTC4ethDLLx64.dll:                    4.85
+    * RTC4ethDLL.dll:                       4.85
+
+
+*******************************************************************************
+Release Date 2021-06-25
+*******************************************************************************
+* BUGFIX:
+    * RTC4ethImport64.vb referenced the wrong DLL file.
+    * rs232_read_data parameter had wrong data type char* instead of
+      unsigned int*.
+    * rs232_write_data/text were broken and did not send any data since
+      Release 2020-02-15.
+* CHANGE:
+    * RTC4ethFirmwareUpdate.exe now is only one tool to upgrade from/to any
+      firmware version.
+* File versions:
+    * RTC4eth_FW_2.0.7.0.bin:                   2.0.7.0
+    * RTC4ethFirmwareUpdate.exe (new version):  1.0.3.0
+    * RTC4netDLL.dll (new version):             2.3.1.0
+	* RTC4netDLLx64.dll (new version):          2.3.1.0
+	* RTC4ethConfig.exe:                        2.1.0.0
+	* RTC4ethDLLx64.dll (new version):          4.85
+	* RTC4ethDLL.dll (new version):             4.85
+
+
+*******************************************************************************
+Release Date 2021-03-05
+*******************************************************************************
+
+* BUGFIX:
+    * eth_get_com_timeouts_auto output parameter initial_timeout_ms is now
+      returned in milliseconds instead of microseconds.
+    * assign_rtc card_no can now be set to the full range of allowed values.
+      Previously only worked for [1..255].
+* FEATURE:
+    * New commands eth_watchdog_timer_config and eth_watchdog_timer_reset.
+      Allows configuration of a watchdog timer on the card that can stop
+      execution if connection is interrupted.
+    * New command eth_link_loss_config.
+      Allows configuration of a link loss detection mechanism on the card
+      that can stop execution if physical network link state is lost.
+* File versions:
+    * RTC4eth_FW_2.0.7.0.bin (new version):     2.0.7.0
+    * RTC4netDLL.dll (new version):             2.3.0.0
+	* RTC4netDLLx64.dll (new version):          2.3.0.0
+	* RTC4ethConfig.exe:                        2.1.0.0
+	* RTC4ethDLLx64.dll (new version):          4.84
+	* RTC4ethDLL.dll (new version):             4.84
+
+
+*******************************************************************************
+Release Date 2020-10-16
+*******************************************************************************
+
+* BUGFIX: Fix API for C# and VB.net
+    * Functions that wrap Delphi functions writing to LPSTR parameters are
+      now expected to get an IntPtr pointing to an unmanaged memory area
+      allocated by Marshal.AllocHGlobal. API for C# and VB.net is now
+      consistent.
+    * In the C/C++ API, const char* is now used for all ASCII strings
+      not being modified by the underlying Delphi function. (This was not
+      a bug but allows cleaner implementation of C++ wrappers)
+    * NIC search did not clear already found cards. Make sure found NICs
+      are only detected once each search.
+* FEATURE: Implement adaptive timeout algorithm for UDP communication
+    * Cards use the new adaptive algorithm until it is disabled by using
+      the old set_timeouts function.
+* File versions:
+    * RTC4eth_FW_2.0.6.bin:	        2.0.6.0
+        * RTC4netDLL.dll (new version): 2.2.0.0
+	* RTC4netDLLx64.dll (new version): 2.2.0.0
+	* RTC4ethConfig.exe:            2.1.0.0
+	* RTC4ethDLLx64.dll (new version): 4.83
+	* RTC4ethDLL.dll (new version): 4.83
+
+
+*******************************************************************************
+Release Date 2020-02-15
+*******************************************************************************
+
+* CHANGE: Implement Multiboard Support - Changes in User API
+    * The new ethernet firmware RTC4eth_FW_2.0.6.bin must be installed
+	  on the card to provide correct communications with the RTC4netDLL(x64).dll
+	* HPGL Converter is removed because it does currently not support the
+	  new DLL versions.
+* BUGFIX: Fix issues with datagram communication between card and host
+    * Fix card information retrieval on connection establishment
+      and status
+* File versions:
+    * RTC4eth_FW_2.0.6.bin (new version): 2.0.6.0
+	* RTC4netDLL.dll (new version): 2.1.0.0
+	* RTC4netDLLx64.dll (new version): 2.1.0.0
+	* RTC4ethConfig.exe (new version): 2.1.0.0
+	* RTC4ethDLLx64.dll (new version): 4.80
+	* RTC4ethDLL.dll (new version): 4.80
+
+	
+*******************************************************************************
+Release Date 2019-05-17
+*******************************************************************************
+
+* BUGFIX: The MCU firmware binary file was corrupt in the last package and an 
+          update could lead to an unreachable card.
+* CHANGE: Firmware and net-DLL increase the robustness against network 
+          disturbances during card release processes.
+* File versions:
+    * RTC4eth_FW_2.0.5.1.bin (new version): 2.0.5.1
+    * RTC4netDLL.dll (new version): 2.0.5.1
+    * RTC4netDLLx64.dll (new version): 2.0.5.1
+    
+
+*******************************************************************************
+Release Date 2018-11-16
+*******************************************************************************
+
+* first official release
+* NEW: this software package contains a new version of RTC4netDLL.dll/RTC4netDLLx64.dll.
+  This DLL is ONLY compatible with RTC4 Ethernet Card V2 (and vice versa)
+  This new version improves both ethernet performance and stability.
+* File versions:
+    * RTC4netDLL.dll (new version): 2.0.4.0
+    * RTC4netDLLx64.dll (new version): 2.0.4.0
+    * RTC4ethConfig.exe (new version): 2.0.0.1
+    * RTC4ethDLL.dll (unchanged): 4.64
+    * RTC4ethDLLx64.dll (unchanged): 4.64
+    * RTC4ethDLLx64.dll (unchanged): 4.64
+
+

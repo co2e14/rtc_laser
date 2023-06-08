@@ -1,0 +1,184 @@
+; File: RTC6DRV.inf
+;-----------------------------------------------------------------------------
+;                           Driver installation file
+;                      for SCANLAB's RTC6 interface board
+;                           for Windows XP or better
+;
+; Copyright (c) 2015 by SCANLAB AG.                       All rights reserved.
+;
+;  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+;  KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+;  IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
+;  PURPOSE.
+;-----------------------------------------------------------------------------
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=SCANLAB
+ClassGUID={D6797410-1514-11d4-BBA5-0050DA39AF40}
+Provider=%MFGNAME%
+DriverVer=05/20/2015,6.1.7600.16385
+CatalogFile.ntx86   =   RTC6DRVx86.cat
+CatalogFile.ntamd64 =   RTC6DRVx64.cat
+
+
+;-----------------------------------------------------------------------------
+;  Class section
+;-----------------------------------------------------------------------------
+;  NOTE: ClassInstall32 section gets executed only, if the SCANLAB class
+;  does not exist in the registry. SCANLAB's class key is:
+;  HKLM\System\CurrentControlSet\Control\
+;       Class\{D6797410-1514-11d4-BBA5-0050DA39AF40}
+
+[ClassInstall32]
+AddReg=ManuClassReg
+
+[ManuClassReg]
+HKR,,Icon,,-5
+HKR,,,0,%ClassName%
+HKR,,DeviceCharacteristics,0x10001,0x100        ; Use same security checks on
+                                                ; relative opens
+; Allow generic all access to the system and built-in Administrators and
+; allow read/write access to the built-in user group.
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)(A;;GRGW;;;BU)"
+
+
+;-----------------------------------------------------------------------------
+;  Device Install section
+;-----------------------------------------------------------------------------
+
+[ControlFlags]
+ExcludeFromSelect=PCI\VEN_104C&DEV_B005&SUBSYS_36435452
+
+[Manufacturer]
+%MFGNAME%=SCANLAB,ntx86.5.1,ntamd64
+
+; For XP and later
+[SCANLAB.ntx86.5.1]
+; DisplayName           Section           DeviceId
+; -----------           -------           --------
+%RTC6.DRVDESC%=     RTC6Install.ntx86.5.1,PCI\VEN_104C&DEV_B005&SUBSYS_36435452
+[SCANLAB.ntamd64]
+; DisplayName           Section           DeviceId
+; -----------           -------           --------
+%RTC6.DRVDESC%=     RTC6Install.ntamd64,  PCI\VEN_104C&DEV_B005&SUBSYS_36435452
+
+
+;-----------------------------------------------------------------------------
+;  RTC6 specific Sections
+;-----------------------------------------------------------------------------
+
+[RTC6Install.ntx86.5.1]
+CopyFiles=DriverCopyFiles.ntx86.5.1
+
+[RTC6Install.ntamd64]
+CopyFiles=DriverCopyFiles.ntamd64
+
+
+[RTC6Install.ntx86.5.1.Services]
+AddService=RTC6DRVx86,2,DriverService.ntx86.5.1
+
+[RTC6Install.ntamd64.Services]
+AddService=RTC6DRVx64,2,DriverService.ntamd64
+
+
+[RTC6Install.ntx86.5.1.hw]
+AddReg=RTC6HwAddReg
+
+[RTC6Install.ntamd64.hw]
+AddReg=RTC6HwAddReg
+
+[RTC6HwAddReg]
+HKR,,FriendlyName,,"RTC6 : Real Time Scanner Controller"
+
+
+;-----------------------------------------------------------------------------
+;  Common Sections
+;-----------------------------------------------------------------------------
+
+[DestinationDirs]
+DefaultDestDir=10,System32\Drivers
+DriverCopyFiles.ntx86.5.1=10,System32\Drivers
+DriverCopyFiles.ntamd64=10,System32\Drivers
+
+[SourceDisksNames]
+1=%DiskName%,,,
+
+[SourceDisksFiles]
+RTC6DRVx86.sys=1
+RTC6DRVx64.sys=1
+
+[DriverCopyFiles.ntx86.5.1]
+RTC6DRVx86.sys,,,2
+
+[DriverCopyFiles.ntamd64]
+RTC6DRVx64.sys,,,2
+
+
+[DriverService.ntx86.5.1]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\RTC6DRVx86.sys                            
+
+[DriverService.ntamd64]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\RTC6DRVx64.sys                            
+
+
+;-----------------------------------------------------------------------------
+;  WDF Co-installer Sections
+;-----------------------------------------------------------------------------
+
+[DestinationDirs]
+CoInstaller_CopyFiles.ntx86.5.1 = 11
+CoInstaller_CopyFiles.ntamd64 = 11
+
+[RTC6Install.ntx86.5.1.CoInstallers]
+AddReg=CoInstaller_AddReg
+CopyFiles=CoInstaller_CopyFiles.ntx86.5.1
+
+[RTC6Install.ntamd64.CoInstallers]
+AddReg=CoInstaller_AddReg
+CopyFiles=CoInstaller_CopyFiles.ntamd64
+
+
+[SourceDisksFiles.x86]
+WdfCoInstaller01009.dll=1,x86
+
+[CoInstaller_CopyFiles.ntx86.5.1]
+WdfCoInstaller01009.dll
+
+
+[SourceDisksFiles.amd64]
+WdfCoInstaller01009.dll=1,amd64
+
+[CoInstaller_CopyFiles.ntamd64]
+WdfCoInstaller01009.dll
+
+[SourceDisksFiles]
+WdfCoInstaller01009.dll=1
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[RTC6Install.ntx86.5.1.Wdf]
+KmdfService = RTC6DRVx86, RTC6Install_wdfsect
+[RTC6Install.ntamd64.Wdf]
+KmdfService = RTC6DRVx64, RTC6Install_wdfsect
+[RTC6Install_wdfsect]
+KmdfLibraryVersion = 1.9
+
+
+;-----------------------------------------------------------------------------
+;  String Definitions
+;-----------------------------------------------------------------------------
+
+[Strings]
+MFGNAME         = "SCANLAB AG"
+ClassName       = "SCANLAB controllers"
+RTC6.DRVDESC    = "SCANLAB RTC6 : Real Time Scan-System Controller"
+DiskName        = "SCANLAB driver disk"
+
